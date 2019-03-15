@@ -1,0 +1,428 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Part2_a</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-03-07"><meta name="DC.source" content="Part2_a.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">clear <span class="string">all</span>
+clc
+
+
+
+
+
+
+
+<span class="keyword">for</span> u=1
+
+
+    nx=200*u;
+    ny=100*u;
+
+    cMap=ones(ny,nx);
+
+    boxes(1,1)=100*u;<span class="comment">%x</span>
+    boxes(1,2)=20*u;<span class="comment">%y</span>
+    boxes(1,3)=41*u;<span class="comment">%hight</span>
+    boxes(1,4)=40*u;<span class="comment">%width</span>
+
+    boxes(2,1)=100*u;<span class="comment">%x</span>
+    boxes(2,2)=80*u;<span class="comment">%y</span>
+    boxes(2,3)=41*u;<span class="comment">%hight</span>
+    boxes(2,4)=40*u;<span class="comment">%width</span>
+
+    cMap=ones(ny,nx);
+
+    value=1e-2;
+
+
+    <span class="keyword">for</span> k=1:length(boxes(:,1))
+
+        cMap=addboxcmap(cMap,boxes(k,:),value,nx,ny);
+
+
+    <span class="keyword">end</span>
+
+    <span class="comment">%surf(cMap)</span>
+
+    G = sparse(nx*ny);
+    B = zeros(1,nx*ny);
+
+
+    <span class="keyword">for</span> i = 1:ny
+        <span class="keyword">for</span> j = 1:nx
+            n = i + (j - 1) * ny;
+
+            <span class="keyword">if</span> j == 1
+                G(n, :) = 0;
+                G(n, n) = 1;
+                B(n) = 0.8;
+            <span class="keyword">elseif</span> j == nx
+                G(n, :) = 0;
+                G(n, n) = 1;
+            <span class="keyword">elseif</span> i == 1
+                nxm = i + (j - 2) * ny;
+                nxp = i + (j) * ny;
+                nyp = i + 1 + (j - 1) * ny;
+
+                rxm = (cMap(i, j) + cMap(i , j-1)) / 2.0;
+                rxp = (cMap(i, j) + cMap(i , j+1)) / 2.0;
+                ryp = (cMap(i, j) + cMap(i+1, j)) / 2.0;
+
+                G(n, n) = -(rxm+rxp+ryp);
+                G(n, nxm) = rxm;
+                G(n, nxp) = rxp;
+                G(n, nyp) = ryp;
+
+            <span class="keyword">elseif</span> i ==  ny
+                nxm = i + (j - 2) * ny;
+                nxp = i + (j) * ny;
+                nym = i - 1 + (j - 1) * ny;
+
+                rxm = (cMap(i, j) + cMap(i , j-1)) / 2.0;
+                rxp = (cMap(i, j) + cMap(i , j+1)) / 2.0;
+                rym = (cMap(i, j) + cMap(i-1, j )) / 2.0;
+
+                G(n, n) = -(rxm + rxp + rym);
+                G(n, nxm) = rxm;
+                G(n, nxp) = rxp;
+                G(n, nym) = rym;
+            <span class="keyword">else</span>
+                nxm = i + (j-2)*ny;
+                nxp = i + (j)*ny;
+                nym = i-1 + (j-1)*ny;
+                nyp = i+1 + (j-1)*ny;
+
+                rxm = (cMap(i, j) + cMap(i , j-1)) / 2.0;
+                rxp = (cMap(i, j) + cMap(i , j+1)) / 2.0;
+                rym = (cMap(i, j) + cMap(i-1, j )) / 2.0;
+                ryp = (cMap(i, j) + cMap(i+1, j)) / 2.0;
+
+                G(n,n) = -(rxm+rxp+rym+ryp);
+                G(n,nxm) = rxm;
+                G(n,nxp) = rxp;
+                G(n,nym) = rym;
+                G(n,nyp) = ryp;
+            <span class="keyword">end</span>
+
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    V = G\B';
+
+
+
+    Vmap = zeros(ny,nx);
+    <span class="keyword">for</span> i = 1:ny
+        <span class="keyword">for</span> j = 1:nx
+            n = i + (j - 1) * ny;
+
+            Vmap(i, j) = V(n);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    [Ex, Ey] = gradient(-Vmap.*1e9);
+
+
+
+<span class="comment">%     Jx=Ex.*cMap;</span>
+<span class="comment">%     Jy=Ey.*cMap;</span>
+<span class="comment">%</span>
+<span class="comment">%     Emag=(Ex.^2+Ey.^2).^0.5;</span>
+<span class="comment">%</span>
+<span class="comment">%     figure(1)</span>
+<span class="comment">%     surf(cMap,'EdgeColor','flat')</span>
+<span class="comment">%     caxis([0 1])</span>
+<span class="comment">%     colorbar</span>
+<span class="comment">%     title('Conduction Map')</span>
+<span class="comment">%     xlabel('x-axis nm')</span>
+<span class="comment">%     ylabel('y-axis nm')</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">%     view(0,90)</span>
+<span class="comment">%</span>
+    figure(5)
+    contourf(Vmap,25)
+    title(<span class="string">'Voltage Map (V)'</span>)
+    xlabel(<span class="string">'x-axis nm'</span>)
+    ylabel(<span class="string">'y-axis nm'</span>)
+    view(0,90)
+    colorbar
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">%     figure(3)</span>
+<span class="comment">%     quiver(Ex,Ey)</span>
+<span class="comment">%     title('Electric Field Vector Plot')</span>
+<span class="comment">%     xlabel('x-axis nm')</span>
+<span class="comment">%     ylabel('y-axis nm')</span>
+<span class="comment">%     view(0,90)</span>
+<span class="comment">%</span>
+<span class="comment">%</span>
+<span class="comment">%     figure(4)</span>
+<span class="comment">%     quiver(Jx,Jy)</span>
+<span class="comment">%     title('Current Density Vector Plot')</span>
+<span class="comment">%     xlabel('x-axis nm')</span>
+<span class="comment">%     ylabel('y-axis nm')</span>
+<span class="comment">%     view(0,90)</span>
+<span class="comment">%</span>
+<span class="comment">% %     figure(5)</span>
+<span class="comment">% %     surf(Emag,'EdgeColor','flat')</span>
+<span class="comment">% %     title('Electric Field Magnitude')</span>
+<span class="comment">% %     caxis([0 30])</span>
+<span class="comment">% %     colorbar</span>
+<span class="comment">% %     view(0,90)</span>
+<span class="comment">%</span>
+<span class="comment">%     Jleft=sum(Jx(1:ny,1))/ny;</span>
+<span class="comment">%</span>
+<span class="comment">%     Jright=sum(Jx(1:ny,nx))/ny;</span>
+
+<span class="keyword">end</span>
+
+<span class="comment">% fprintf('The left side calculated current density is %7.2s A/nm^2 \n',Jleft)</span>
+<span class="comment">% fprintf('The right side calculated current density is %7.2s A/nm^2 \n',Jright)</span>
+<span class="comment">%</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+
+clear all
+clc
+
+
+
+
+
+
+
+for u=1
+    
+
+    nx=200*u;
+    ny=100*u;
+
+    cMap=ones(ny,nx);
+
+    boxes(1,1)=100*u;%x
+    boxes(1,2)=20*u;%y
+    boxes(1,3)=41*u;%hight
+    boxes(1,4)=40*u;%width
+
+    boxes(2,1)=100*u;%x
+    boxes(2,2)=80*u;%y
+    boxes(2,3)=41*u;%hight
+    boxes(2,4)=40*u;%width
+
+    cMap=ones(ny,nx);
+
+    value=1e-2;
+
+
+    for k=1:length(boxes(:,1))
+
+        cMap=addboxcmap(cMap,boxes(k,:),value,nx,ny);
+
+
+    end
+
+    %surf(cMap)
+
+    G = sparse(nx*ny);
+    B = zeros(1,nx*ny);
+
+
+    for i = 1:ny
+        for j = 1:nx
+            n = i + (j - 1) * ny;
+
+            if j == 1
+                G(n, :) = 0;
+                G(n, n) = 1;
+                B(n) = 0.8;
+            elseif j == nx
+                G(n, :) = 0;
+                G(n, n) = 1;
+            elseif i == 1
+                nxm = i + (j - 2) * ny;
+                nxp = i + (j) * ny;
+                nyp = i + 1 + (j - 1) * ny;
+
+                rxm = (cMap(i, j) + cMap(i , j-1)) / 2.0;
+                rxp = (cMap(i, j) + cMap(i , j+1)) / 2.0;
+                ryp = (cMap(i, j) + cMap(i+1, j)) / 2.0;
+
+                G(n, n) = -(rxm+rxp+ryp);
+                G(n, nxm) = rxm;
+                G(n, nxp) = rxp;
+                G(n, nyp) = ryp;
+
+            elseif i ==  ny
+                nxm = i + (j - 2) * ny;
+                nxp = i + (j) * ny;
+                nym = i - 1 + (j - 1) * ny;
+
+                rxm = (cMap(i, j) + cMap(i , j-1)) / 2.0;
+                rxp = (cMap(i, j) + cMap(i , j+1)) / 2.0;
+                rym = (cMap(i, j) + cMap(i-1, j )) / 2.0;
+
+                G(n, n) = -(rxm + rxp + rym);
+                G(n, nxm) = rxm;
+                G(n, nxp) = rxp;
+                G(n, nym) = rym;
+            else
+                nxm = i + (j-2)*ny;
+                nxp = i + (j)*ny;
+                nym = i-1 + (j-1)*ny;
+                nyp = i+1 + (j-1)*ny;
+
+                rxm = (cMap(i, j) + cMap(i , j-1)) / 2.0;
+                rxp = (cMap(i, j) + cMap(i , j+1)) / 2.0;
+                rym = (cMap(i, j) + cMap(i-1, j )) / 2.0;
+                ryp = (cMap(i, j) + cMap(i+1, j)) / 2.0;
+
+                G(n,n) = -(rxm+rxp+rym+ryp);
+                G(n,nxm) = rxm;
+                G(n,nxp) = rxp;
+                G(n,nym) = rym;
+                G(n,nyp) = ryp;
+            end
+
+        end
+    end
+
+    V = G\B';
+
+
+
+    Vmap = zeros(ny,nx);
+    for i = 1:ny
+        for j = 1:nx
+            n = i + (j - 1) * ny;
+
+            Vmap(i, j) = V(n);
+        end
+    end
+
+    [Ex, Ey] = gradient(-Vmap.*1e9);
+    
+    
+    
+%     Jx=Ex.*cMap;
+%     Jy=Ey.*cMap;
+%     
+%     Emag=(Ex.^2+Ey.^2).^0.5;
+%         
+%     figure(1)
+%     surf(cMap,'EdgeColor','flat')
+%     caxis([0 1])
+%     colorbar
+%     title('Conduction Map')
+%     xlabel('x-axis nm')
+%     ylabel('y-axis nm')
+%     
+%     
+%     view(0,90)
+%     
+    figure(5)
+    contourf(Vmap,25)
+    title('Voltage Map (V)')
+    xlabel('x-axis nm')
+    ylabel('y-axis nm')
+    view(0,90)
+    colorbar
+%     
+%     
+%     figure(3)
+%     quiver(Ex,Ey)
+%     title('Electric Field Vector Plot')
+%     xlabel('x-axis nm')
+%     ylabel('y-axis nm')
+%     view(0,90)
+%     
+%     
+%     figure(4)
+%     quiver(Jx,Jy)
+%     title('Current Density Vector Plot')
+%     xlabel('x-axis nm')
+%     ylabel('y-axis nm')
+%     view(0,90)
+%     
+% %     figure(5)
+% %     surf(Emag,'EdgeColor','flat')
+% %     title('Electric Field Magnitude')
+% %     caxis([0 30])
+% %     colorbar
+% %     view(0,90)
+% 
+%     Jleft=sum(Jx(1:ny,1))/ny;
+%     
+%     Jright=sum(Jx(1:ny,nx))/ny;
+
+end
+
+% fprintf('The left side calculated current density is %7.2s A/nm^2 \n',Jleft)
+% fprintf('The right side calculated current density is %7.2s A/nm^2 \n',Jright)
+% 
+
+##### SOURCE END #####
+--></body></html>
